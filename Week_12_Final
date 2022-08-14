@@ -1,0 +1,125 @@
+import sys
+import mysql.connector
+from mysql.connector import errorcode
+config = {
+    "user": "root",
+    "password": "",
+    "host": "127.0.0.1:3306",
+    "database": "WhataBook",
+}
+{
+    INSERT INTO WhataBook (column1,column2,column3,column4,column5,
+    column6,column7,column8,column9)
+    VALUES (value1,value2,value3,value4,value5,value6,value7,value8,value9)
+}
+{
+    INSERT INTO TABLE = (
+        table_name: WhataBook;
+        column1: East Blue Saga;
+        column2: Arabasta Saga;
+        column3: Sky Island Saga;
+        column4: Water 7 Saga;
+        column5: Thriller Bark Saga;
+        column6: Summit War Saga;
+        column7: Fish-man Island Saga;
+        column8: Whole Cake Island Saga;
+        column9: Wano Saga;
+        value1: Da Goat Shanks;
+        value2: Monkey D Luffy;
+        value3: Roronoa Zoro;
+        value4: Monkey D Luffy;
+        value5: Roronoa Zoro;
+        value6: Monkey D Luffy;
+        value7: Roronoa Zoro;
+        value8: Da Goat Shanks;
+        value9: Da Goat Shanks;
+    )
+}
+
+USE whatabook;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Book;
+DROP TABLE IF EXISTS Store;
+DROP TABLE IF EXISTS Wishlist;
+
+CREATE TABLE user (
+	user_id	INT NOT NULL AUTO_INCREMENT,
+    first_name	VARCHAR(100)	NOT NULL,
+    last_name	VARCHAR(100)	NOT NULL,
+    PRIMARY KEY(user_id)
+    );
+
+CREATE TABLE book(
+book_id	INT NOT NULL AUTO_INCREMENT,
+book_name VARCHAR(150)	NOT NULL,
+details VARCHAR(300),
+author VARCHAR(150)	NOT NULL,
+PRIMARY KEY(book_id)
+);
+
+CREATE TABLE store (
+store_id	INT NOT NULL AUTO_INCREMENT,
+locale	VARCHAR(300) NOT NULL,
+PRIMARY KEY(store_id)
+);
+
+CREATE TABLE wishlist (
+wishlist_id INT NOT NULL AUTO_INCREMENT,
+user_id INT NOT NULL,
+book_id INT NOT NULL,
+PRIMARY KEY(wishlist_id),
+CONSTRAINT fk_user
+FOREIGN KEY(user_id)
+	REFERENCES user(user_id),
+CONSTRAINT fk_book
+FOREIGN KEY(book_id)
+	REFERENCES book(book_id)
+);
+
+INSERT INTO store(locale)
+	VALUES('9369 Brooks Dr., Omaha, NE 68009');
+    
+INSERT INTO book(book_name, details, author)
+	VALUES('East Blue Saga','Eiichiro Oda');
+INSERT INTO book(book_name, details, author)
+	VALUES('Arabasta Saga','Eiichiro Oda');
+INSERT INTO book(book_name, details, author)
+	VALUES('Sky Island Saga','Eiichiro Oda');
+INSERT INTO book(book_name, author)
+	VALUES('Water 7 Saga', 'Eiichiro Oda');
+INSERT INTO book(book_name, author)
+	VALUES('Thriller Bark Saga', 'Eiichiro Oda');
+INSERT INTO book(book_name, author)
+	VALUES("Summit War Saga", 'Eiichiro Oda');
+INSERT INTO book(book_name, author)
+	VALUES('Fish-man Island Saga', 'Eiichiro Oda');
+INSERT INTO book(book_name, author)
+	VALUES('Whole Cake Island Saga','Eiichiro Oda');
+INSERT INTO book(book_name, author)
+	VALUES('Wano Saga', 'Eiichiro Oda');
+    
+INSERT INTO user(first_name, last_name)
+	VALUES('Shanks', 'Da Goat');
+INSERT INTO user(first_name, last_name)
+	VALUES('Luffy', 'D. Monkey');
+INSERT INTO user(first_name, last_name)
+	VALUES('Zoro', 'Roronoa');
+    
+INSERT INTO wishlist(user_id, book_id)
+	VALUES( 
+    (SELECT user_id FROM user WHERE first_name = 'Luffy'),
+    (SELECT book_id FROM book WHERE book_name = 'Summit War Saga')
+    );
+    
+INSERT INTO wishlist(user_id, book_id)
+	VALUES( 
+	(SELECT user_id FROM user WHERE first_name = 'Zoro'),
+    (SELECT book_id FROM book WHERE book_name = 'Fish-man Island Saga')
+    
+    );
+INSERT INTO wishlist(user_id, book_id)
+	VALUES( 
+	(SELECT user_id FROM user WHERE first_name = 'Shanks'),
+    (SELECT book_id FROM book WHERE book_name = 'Wano Saga')
+    
+    );
